@@ -1,0 +1,30 @@
+@import "../node_modules/bootswatch/dist/Cerulean/variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootswatch/dist/Cerulean/bootswatch";
+
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+  background-color:$success;
+  color: white;
+}
+.custom-day.faded {
+  background-color: $info;
+}
+
+.custom-day.bg-alert {
+  background-color: $danger;
+}
+
+.custom-day.muted {
+  background-color: $secondary;
+}
