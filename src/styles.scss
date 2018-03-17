@@ -27,3 +27,12 @@
 .custom-day.muted {
   background-color: $secondary;
 }
+
+@font-face {
+  font-family: 'ar-christy';
+  src:
+        url('assets/ar-christy.ttf') format('truetype'), /* Opera, Safari */
+        url('assets/ar-christy.svg#font') format('svg'); /* iOS */
+}
+
+h1, h2, h3 { font-family: 'ar-christy'; }
