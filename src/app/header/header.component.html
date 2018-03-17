@@ -1,0 +1,86 @@
+<div class='row'>
+  <div class="col-md-4 logo">
+    <img src='../../../assets/logo.png'>
+  </div>
+</div>
+
+<header>
+  <nav class="navbar navbar-expand-xl navbar-inverse bg-dark">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" (click)="menu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngbCollapse]="isActive">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink='home' routerLinkActive="active" (click)="isActive = true">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink='expertise' routerLinkActive="active" (click)="isActive = true">Areas of Expertise</a>
+        </li>
+        <li ngbDropdown class="nav-item dropdown active text-primary">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle active" id="dropdownPatient" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Our Patients</a>
+          <div ngbDropdownMenu class="dropdown-menu text-primary" aria-labelledby="dropdownPatient">
+            <a class="dropdown-item text-primary" routerLink='expect' routerLinkActive="active" (click)="isActive = true">What to Expect</a>
+            <a class="dropdown-item text-primary" href='../../../assets/newpatient.pdf' target="_blank" (click)="isActive = true">New Patient form</a>
+            <a class="dropdown-item text-primary" href='../../../assets/recordrelease.pdf' target="_blank" (click)="isActive = true">Patient Record Release Form</a>
+          </div>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" routerLink='iv_therapy' routerLinkActive="active" (click)="isActive = true">I./V. Therapy</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink='articles' routerLinkActive="active" (click)="isActive = true">Health Aticles</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link text-primary" routerLink='catalog' routerLinkActive="active" (click)="isActive = true">Store</a>
+        </li>
+
+        <li ngbDropdown class="nav-item dropdown text-primary">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownAbout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us</a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownAbout">
+            <a class="dropdown-item text-primary" routerLink='practice' routerLinkActive="active" (click)="isActive = true">Our Practice</a>
+            <a class="dropdown-item text-primary" routerLink='team' routerLinkActive="active" (click)="isActive = true">Meet our Team</a>
+            <a class="dropdown-item text-primary" routerLink='doctors' routerLinkActive="active" (click)="isActive = true">Our Doctors</a>
+            <a class="dropdown-item text-primary" routerLink='staff' routerLinkActive="active" (click)="isActive = true">Our Staff</a>
+            <a class="dropdown-item text-primary" routerLink='contact' routerLinkActive="active" (click)="isActive = true">Contact Us</a>
+          </div>
+        </li>
+
+        <li *ngIf='isAdmin' ngbDropdown class="nav-item dropdown text-primary">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownAdmin">
+            <a class="dropdown-item text-primary" routerLink='product' routerLinkActive="active" (click)="isActive = true">Products</a>
+            <a class="dropdown-item text-primary" routerLink='vendor' routerLinkActive="active" (click)="isActive = true">Vendors</a>
+            <a class="dropdown-item text-primary" routerLink='brand' routerLinkActive="active" (click)="isActive = true">Brands</a>
+            <a class="dropdown-item text-primary" routerLink='unit' routerLinkActive="active" (click)="isActive = true">Units</a>
+            <a class="dropdown-item text-primary" routerLink='category' routerLinkActive="active" (click)="isActive = true">Categories</a>
+            <a class="dropdown-item text-primary" routerLink='campaign' routerLinkActive="active" (click)="isActive = true">Campaign</a>
+          </div>
+        </li>
+
+
+        <li *ngIf='!authenticated' ngbDropdown class="nav-item dropdown text-primary">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownLogin">
+            <a class="dropdown-item text-primary" routerLink='login' routerLinkActive="active" (click)="isActive = true">Login</a>
+            <a class="dropdown-item text-primary" routerLink='register' routerLinkActive="active" (click)="isActive = true">Register</a>
+          </div>
+        </li>
+
+        <li *ngIf='authenticated' ngbDropdown class="nav-item dropdown text-primary">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userName}}</a>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownLogin">
+              <a class="dropdown-item text-primary" routerLink='orders' routerLinkActive="active" (click)="isActive = true">My order</a>
+              <a class="dropdown-item text-primary" routerLink='campaigns' routerLinkActive="active" (click)="isActive = true">My campaigns</a>
+              <a class="dropdown-item text-primary" routerLinkActive="active" (click)="logout();isActive = true">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </div>
+    <app-basket-status *ngIf='authenticated'></app-basket-status>
+  </nav>
+</header>
