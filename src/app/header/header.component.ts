@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../auth/auth.service';
+import { ConfigurationService } from '../shared/services/configuration.service';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,13 @@ export class HeaderComponent implements OnInit {
   private subscription: Subscription;
   public userName: string = '';
   badge: number = 0;
+  name: string = '';
 
-  constructor(private service: AuthService) { }
+  constructor(private service: AuthService, private config: ConfigurationService) {
+    this.config.load().subscribe(x => {
+      this.name = this.config.serverSettings.Name;
+  });
+}
 
   ngOnInit() {
     this.subscription = this.service.authentication$.subscribe(res => {
