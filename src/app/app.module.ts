@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AuthModule } from './auth/auth.module';
 import { BasketModule } from './basket/basket.module';
@@ -32,6 +33,7 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     FormsModule,
     NgbModule.forRoot(),
+    FontAwesomeModule,
     AppRoutingModule,
     AuthModule,
     BasketModule,

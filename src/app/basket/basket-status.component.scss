@@ -19,9 +19,9 @@
 
     &-badge {
         $size: 1.5rem;
-        background-color: $color-secondary;
+        background-color: $secondary;
         border-radius: 50%;
-        color: $color-foreground-brighter;
+        color: $primary;
         display: block;
         height: $size;
         left: 50%;
@@ -35,7 +35,7 @@
 
     &:hover &-badge {
         background-color: transparent;
-        color: $color-secondary-dark;
+        color: $secondary;
         transition: all $animation-speed-default;
     }
 }

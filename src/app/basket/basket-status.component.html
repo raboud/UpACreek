@@ -3,9 +3,12 @@
    [routerLink]="['basket']">
 
     <div class="basketstatus-image">
-        <img src="assets/images/cart.png" />
+        <span className="fa-layers fa-fw">
+        <fa-icon [icon]="['fas', 'shopping-cart']" size="2x"></fa-icon>
+        <div class="basketstatus-badge">
+            {{badge}}
+        </div>
+      </span>
     </div>
-    <div class="basketstatus-badge">
-        {{badge}}
-    </div>
+
 </a>
