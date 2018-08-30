@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import brands from '@fortawesome/fontawesome-free-brands';
-import regular from '@fortawesome/fontawesome-free-regular';
-import solid from '@fortawesome/fontawesome-free-solid';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome';
 
 @Component({
@@ -15,8 +15,6 @@ export class AppComponent {
   magicLevel = 0;
 
   constructor() {
-    library.add(solid);
-    library.add(regular);
-    library.add(brands);
+    library.add(fab, far, fas);
   }
 }
