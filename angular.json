@@ -60,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hms-web:build"
+            "browserTarget": "utr:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hms-web:build:production"
+              "browserTarget": "utr:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hms-web:build"
+            "browserTarget": "utr:build"
           }
         },
         "test": {
@@ -117,7 +117,7 @@
         }
       }
     },
-    "hms-web-e2e": {
+    "utr-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -126,7 +126,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "hms-web:serve"
+            "devServerTarget": "utr:serve"
           }
         },
         "lint": {
@@ -143,7 +143,7 @@
       }
     }
   },
-  "defaultProject": "hms-web",
+  "defaultProject": "utr",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
