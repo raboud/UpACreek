@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { Observable,  } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/observable/of';
+import { Observable, Subject, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { IConfiguration } from '../models';
 import { StorageService } from './storage.service';
@@ -34,7 +30,8 @@ export class ConfigurationService {
           this.loadingBegun = true;
           const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;
           const url = `${baseURI}assets/appsettings.json`;
-          return this.http.get<IConfiguration>(url).map((response: IConfiguration) => {
+          return this.http.get<IConfiguration>(url).pipe(
+            map((response: IConfiguration) => {
               console.log('server settings loaded');
               this.serverSettings = response;
               this.storageService.store('basketUrl', this.serverSettings.basketUrl);
@@ -46,12 +43,12 @@ export class ConfigurationService {
               this.settingsLoadedSource.next(true);
               this.isReady = true;
               return true;
-            });
+            }));
         } else {
           return this.settingsLoaded$;
         }
       } else {
-        return Observable.of(true);
+        return of(true);
       }
     }
 }

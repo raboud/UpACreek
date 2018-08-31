@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable, Subject } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { DataService } from '../shared/services/data.service';
 import { ConfigurationService } from '../shared/services/configuration.service';
@@ -97,32 +93,41 @@ export class BasketService {
 
     private setBasket(): Observable<boolean> {
         const url = this.basketUrl + '/api/v1/basket/';
-        return this.service.post<IBasket>(url, this.basket).map((b) => {
-          this.basket = b.body;
-          this.basketUpdateSource.next(true);
-          return true;
-        });
+        return this.service.post<IBasket>(url, this.basket)
+          .pipe(
+            map((b) => {
+              this.basket = b.body;
+              this.basketUpdateSource.next(true);
+              return true;
+            })
+          );
     }
 
     setBasketCheckout(basketCheckout): Observable<boolean> {
         const url = this.basketUrl + '/api/v1/basket/checkout';
-        return this.service.postWithId(url, basketCheckout).map(() => {
-            this.basketUpdateSource.next(true);
-            return true;
-        });
+        return this.service.postWithId(url, basketCheckout)
+          .pipe(
+            map(() => {
+              this.basketUpdateSource.next(true);
+              return true;
+            })
+          );
     }
 
     private getBasket(): Observable<IBasket> {
       console.log('getBasket ' + this.basket.buyerId);
         const url = this.basketUrl + '/api/v1/basket/' + this.basket.buyerId;
-        return this.service.getFullResp<IBasket>(url).map(resp => {
-          if (resp.status === 204) {
-            return null;
-          }
-            this.basket = resp.body;
-            this.basketUpdateSource.next(true);
-            return resp.body;
-        });
+        return this.service.getFullResp<IBasket>(url)
+          .pipe(
+            map(resp => {
+              if (resp.status === 204) {
+                return null;
+              }
+              this.basket = resp.body;
+              this.basketUpdateSource.next(true);
+              return resp.body;
+            })
+          );
     }
 /*
     mapBasketInfoCheckout(order: IOrder): IBasketCheckout {

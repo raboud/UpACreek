@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
-import 'rxjs/add/operator/retry';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Guid } from '../guid';
 import { HttpJsonParseError } from '@angular/common/http/src/response';
@@ -27,8 +21,10 @@ export class DataService {
     get<type>(url: string, params?: any): Observable<type> {
       console.log('get ' + url);
        return this.http.get<type>(url)
-          .map((d) => d )
-          .catch(this.handleError);
+       .pipe(
+          map((d) => d ),
+          catchError(this.handleError)
+       );
     }
 
     postWithId<t>(url: string, data: any, params?: any): Observable<HttpResponse<t>> {
@@ -39,11 +35,11 @@ export class DataService {
         return this.doPost<t>(url, data, false, params);
     }
 
-    putWithId(url: string, data: any, params?: any): Observable<Response> {
+    putWithId<t>(url: string, data: any, params?: any): Observable<HttpResponse<t>> {
         return this.doPut(url, data, true, params);
     }
 
-    put(url: string, data: any, params?: any): Observable<Response> {
+    put<t>(url: string, data: any, params?: any): Observable<HttpResponse<t>> {
       return this.doPut(url, data, false, params);
   }
 
@@ -55,13 +51,16 @@ export class DataService {
             options.append('x-requestid', guid);
         }
 
-        return this.http.post(url, data, {headers: options,  observe: 'response' }).map(
+        return this.http.post(url, data, {headers: options,  observe: 'response' }).pipe(
+          map(
             (res: HttpResponse<t>) => {
                 return res;
-            }).catch(this.handleError);
+            }),
+            catchError(this.handleError)
+          );
     }
 
-    private doPut<t>(url: string, data: any, needId: boolean, params?: any): Observable<Response> {
+    private doPut<t>(url: string, data: any, needId: boolean, params?: any): Observable<HttpResponse<t>> {
       const options: HttpHeaders = new HttpHeaders();
 
         if (needId) {
@@ -69,17 +68,24 @@ export class DataService {
             options.append('x-requestid', guid);
         }
 
-        return this.http.put(url, data, {headers: options,  observe: 'response'}).map(
-            (res:  HttpResponse<t>) => {
+        return this.http.put(url, data, {headers: options,  observe: 'response'})
+          .pipe(
+            map(
+              (res:  HttpResponse<t>) => {
                 return res;
-            }).catch(this.handleError);
+              }),
+              catchError(this.handleError)
+            );
     }
 
     delete(url: string, params?: any): Observable<boolean> {
-        return this.http.delete(url).map((res) => {
-            return true;
-        })
-        .catch(this.handleError);
+        return this.http.delete(url)
+          .pipe(
+            map((res) => {
+              return true;
+            }),
+            catchError(this.handleError)
+          );
     }
 
     private handleError(error: HttpErrorResponse) {
